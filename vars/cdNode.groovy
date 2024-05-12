@@ -12,6 +12,15 @@ def call(Map parameters = [:], body) {
       apiVersion: v1
       kind: Pod
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: purpose
+                  operator: In
+                  values:
+                  - jenkins-nodes
         containers:
         - name: crane
           image: ${craneImage}
